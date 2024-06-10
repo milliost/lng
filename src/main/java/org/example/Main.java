@@ -76,7 +76,9 @@ public class Main {
             writer.write(val);
           }
           k = 0;
+          writer.write("\n");
         }
+
       }
 
       long time2 = System.currentTimeMillis();
