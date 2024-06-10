@@ -22,7 +22,6 @@ public class Main {
     BufferedReader reader;
 
     try {
-      System.out.println("Я работаю");
       reader = new BufferedReader(new FileReader(args[0]));
       List<Set<String>> groups = new ArrayList<>();
       List<Map<String, Integer>> parts = new ArrayList<>();
@@ -59,6 +58,7 @@ public class Main {
       }
       reader.close();
 
+
       FileWriter writer = new FileWriter(args[0]);
       writer.write(
           "Число групп с более чем одним элементом: " + groups.stream().filter(s -> s.size() > 1)
@@ -78,11 +78,10 @@ public class Main {
           k = 0;
           writer.write("\n");
         }
-
       }
 
       long time2 = System.currentTimeMillis();
-      System.out.println(time2 - time1 + " миллисекунд");
+      System.out.println("Время работы программы " + (time2 - time1) + " миллисекунд");
 
     } catch (IOException e) {
       throw new RuntimeException(e);
