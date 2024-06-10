@@ -20,17 +20,22 @@ public class Main {
 
     long time1 = System.currentTimeMillis();
     BufferedReader reader;
+    FileWriter writer;
 
     try {
       reader = new BufferedReader(new FileReader(args[0]));
+      writer = new FileWriter(args[0]);
+
       List<Set<String>> groups = new ArrayList<>();
       List<Map<String, Integer>> parts = new ArrayList<>();
 
       String line = reader.readLine();
 
       while (line != null) {
+
         String[] columns = getColumnsOf(line);
         Integer groupNumber = null;
+
         for (int i = 0; i < Math.min(parts.size(), columns.length); i++) {
           Integer groupNumber2 = parts.get(i).get(columns[i]);
           if (groupNumber2 != null) {
@@ -45,6 +50,7 @@ public class Main {
             }
           }
         }
+
         if (groupNumber == null) {
           if (Arrays.stream(columns).anyMatch(s -> !s.isEmpty())) {
             groups.add(new HashSet<>(List.of(line)));
@@ -54,12 +60,11 @@ public class Main {
           groups.get(groupNumber).add(line);
           apply(columns, groupNumber, parts);
         }
+
         line = reader.readLine();
       }
       reader.close();
 
-
-      FileWriter writer = new FileWriter(args[0]);
       writer.write(
           "Число групп с более чем одним элементом: " + groups.stream().filter(s -> s.size() > 1)
               .count());
